@@ -8,8 +8,10 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 collection_ref = db.collection("靜宜資管")
-docs = collection_ref.where(filter=FieldFilter("lab","==", 579)).get()
-NewData = {"name": "子青老師"}
+docs = collection_ref.get()
+
+keyword = input("您要查詢老師名字的關鍵字：")
 for doc in docs:
-    doc_ref = db.collection("靜宜資管").document(doc.id)
-    doc_ref.update(NewData)
+    user = doc.to_dict()
+    if keyword in user["name"]:
+        print(f"{user['name']}老師的研究是在{user['lab']}")
