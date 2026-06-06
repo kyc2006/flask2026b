@@ -94,14 +94,14 @@ def webhook7():
                 max_output_tokens=400
             )
             response = c.models.generate_content(
-                model="gemini-3.5-flash",
-                contents=f"請用純文字、不要用Markdown，用一句話（50字內）回答：{user_input}",
+                model="gemini-3.1-flash-lite",
+                contents=f"請用純文字、不要用Markdown，用一句話（100字）回答：{user_input}",
                 config=ai_config,
             )
             info = response.text.replace("**", "").replace("##", "").replace("###", "")
-            # 強制截斷在60字
-            if len(info) > 60:
-                info = info[:60] + "..."
+            # 強制截斷在100字
+            if len(info) > 100:
+                info = info[:100] + "..."
         except Exception as e:
             info = f"AI 發生錯誤：{str(e)}"
 
